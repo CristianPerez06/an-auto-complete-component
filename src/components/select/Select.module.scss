@@ -1,0 +1,139 @@
+.htmlSelect {
+  display: none;
+}
+
+.outerWrapper {
+  position: relative;
+  user-select: none;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+}
+
+.input {
+  font-size: 1.6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  --border-color: var(--primary-300);
+  outline: 0;
+
+  &:enabled {
+    &:hover,
+    &:focus {
+      margin: 0;
+      border: solid 0.2rem var(--primary-300);
+    }
+  }
+
+  &.readOnly {
+    cursor: pointer;
+  }
+
+  &::-webkit-input-placeholder {
+    color: var(--primary-300);
+  }
+
+  display: block;
+  height: 2rem;
+  width: 100%;
+  border: solid 0.1rem var(--border-color);
+  border-radius: 0.3rem;
+  padding: 0.8rem 4rem 0.8rem 0.8rem;
+  margin: 0.1rem;
+  line-height: 2rem;
+  color: var(--primary-600);
+  cursor: text;
+}
+
+.inputContent {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.chevron {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  fill: var(--primary-400);
+  top: 50%;
+  margin-top: calc(2rem / -2);
+  right: 0.8rem;
+  cursor: pointer;
+
+  &.rotate {
+    transform: rotate(180deg);
+  }
+
+  &.disabled {
+    cursor: default;
+  }
+}
+
+.innerWrapper {
+  position: absolute;
+  min-width: 100%;
+  max-width: 100%;
+  z-index: 2;
+  padding: 0;
+  margin-top: 0.8rem;
+  background: var(--white);
+  border: 0.1rem solid var(--primary-600);
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    max-width: none;
+  }
+}
+
+.options {
+  list-style: none;
+  overflow: auto;
+  max-height: 31.8rem;
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  color: var(--primary-600);
+
+  @media (min-width: 768px) {
+    max-height: 36rem;
+  }
+}
+
+.noOptions {
+  color: var(--primary-400);
+  padding: 1.6rem 2.4rem;
+  cursor: default;
+}
+
+.option {
+  padding: 1.2rem 1.6rem;
+  margin: 0 0.4rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+
+  &:first-child {
+    margin-top: 0.4rem;
+  }
+
+  &:last-child {
+    margin-bottom: 0.4rem;
+  }
+
+  &:hover {
+    background: var(--primary-100);
+  }
+
+  &.isSelected {
+    background: var(--primary-200);
+  }
+}
+
+.placeholder {
+  color: var(--primary-300);
+}
