@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Select from './select/Select'
-import { Option } from '../../types/types'
+import { Option, Post } from '../../types/types'
 import Alert, { Type as AlertType } from '../alert/Alert'
 
 import styles from './Autocomplete.module.scss'
+import useDebounce from '../../hooks/useDebounce'
 
 type Component = () => JSX.Element
 
@@ -13,35 +14,43 @@ const AutoComplete: Component = () => {
   const [error, setError] = useState('')
   const [filterValue, setFilterValue] = useState('')
 
-  const getData = async (value: string) => {
-    const OPTIONS = [
-      {
-        value: '1',
-        label: 'Here you can find the first option.',
-      },
-      { value: '2', label: 'This one is the second option.' },
-      { value: '3', label: 'Last but not least, you have here the third option.' },
-    ]
+  const debouncedFilterValue = useDebounce(filterValue, 500)
 
-    const filteredOptions = OPTIONS.filter((o) => o.label.toLowerCase().includes(value.toLowerCase()))
+  const fetchData = async () => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const posts: Post[] = await response.json()
 
-    return filteredOptions
+    // Map Posts to Options
+    const mappedOptions: Option[] = posts.map((posts) => {
+      return {
+        value: posts.id.toString(),
+        label: posts.title,
+      }
+    })
+
+    return mappedOptions
   }
 
+  // Handle input change
   const handleInputChange = useCallback((value: string) => {
     setFilterValue(value)
   }, [])
 
+  // Handle option selected
   const handleSelection = useCallback(() => {
     setFilterValue('')
   }, [])
 
   useEffect(() => {
+    // Cleanup old state
     setIsLoading(true)
     setError('')
-    getData(filterValue)
+
+    // Fetch options
+    fetchData()
       .then((data) => {
-        setOptionsList(data)
+        const filteredOptions = data.filter((o) => o.label.toLowerCase().includes(filterValue.toLowerCase()))
+        setOptionsList(filteredOptions)
       })
       .catch((error) => {
         setError(error)
@@ -49,7 +58,7 @@ const AutoComplete: Component = () => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [filterValue])
+  }, [debouncedFilterValue])
 
   return (
     <div className={styles.container}>
@@ -58,7 +67,7 @@ const AutoComplete: Component = () => {
         onChange={handleInputChange}
         onSelect={handleSelection}
         isReadOnly={false}
-        isDisabled={isLoading || !!error}
+        isDisabled={!!error}
       />
       {isLoading && <div className={styles.loading}>Loading...</div>}
       {error && (

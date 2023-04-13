@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { Option } from '../../../types/types'
 import { ReactComponent as ChevronDownIcon } from '../../../assets/chevron-down.svg'
 import { OptionLabel } from './OptionLabel'
@@ -31,6 +31,19 @@ export const Select: Comp = (props: SelectProps) => {
   const [selectedOption, setSelectedOption] = useState(EMPTY_OPTION)
   const [inputText, setInputText] = useState('')
 
+  const outerWrapper = useRef<HTMLDivElement>(null)
+
+  // Handle outside click
+  const handleClickOutside = useCallback(
+    (e: MouseEvent) => {
+      const target = e.target as Node | null
+      if (outerWrapper.current && !outerWrapper.current.contains(target)) {
+        setIsOpen(false)
+      }
+    },
+    [inputText]
+  )
+
   // Handle input click
   const handleInputClick = useCallback(() => {
     setIsOpen((prev) => !prev)
@@ -62,10 +75,15 @@ export const Select: Comp = (props: SelectProps) => {
       onSelect?.()
       return
     }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
   }, [isOpen])
 
   return (
-    <div className={styles.outerWrapper}>
+    <div ref={outerWrapper} className={styles.outerWrapper}>
       <div className={styles.inputContainer}>
         <input
           className={cn(styles.input, isReadOnly && styles.readOnly, isDisabled && styles.disabled)}
