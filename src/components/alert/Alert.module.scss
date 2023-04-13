@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.default {
+  border: 0.1rem solid var(--primary-300);
+  background-color: var(--primary-200);
+  color: var(--text-primary);
+}
+
+.danger {
+  border: 0.1rem solid var(--danger-400);
+  background-color: var(--danger-100);
+  color: var(--danger-400);
+}
