@@ -63,7 +63,7 @@ const AutoComplete: Component = () => {
   return (
     <div className={styles.container}>
       <Select
-        options={optionsList.filter((o) => o.label.toLowerCase().includes(filterValue.toLowerCase()))}
+        options={optionsList}
         onChange={handleInputChange}
         onSelect={handleSelection}
         isReadOnly={false}

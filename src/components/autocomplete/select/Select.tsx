@@ -66,6 +66,19 @@ export const Select: Comp = (props: SelectProps) => {
     onChange?.(value)
   }, [])
 
+  // Handle arrow icon click
+  const handleArrowIconClick = useCallback(() => {
+    if (isDisabled) {
+      return
+    }
+    setIsOpen((prev) => !prev)
+  }, [isDisabled])
+
+  // Handle no options click
+  const handleNoOptionsClick = useCallback(() => {
+    setIsOpen(false)
+  }, [])
+
   useEffect(() => {
     if (!isOpen) {
       // When Select is closed - If no text is typed in then use selected option text
@@ -76,7 +89,10 @@ export const Select: Comp = (props: SelectProps) => {
       return
     }
 
+    // Add click outside handler
     document.addEventListener('mousedown', handleClickOutside)
+
+    // Cleanup - Remove click outside handler
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
@@ -90,25 +106,20 @@ export const Select: Comp = (props: SelectProps) => {
           value={inputText}
           placeholder={placeholder}
           onChange={(e) => handleInputChange(e.currentTarget.value)}
-          onClick={() => handleInputClick()}
+          onClick={handleInputClick}
           readOnly={isReadOnly}
           disabled={isDisabled}
         />
         <ChevronDownIcon
           className={cn(styles.chevron, isOpen && styles.rotate, isDisabled && styles.disabled)}
-          onClick={() => {
-            if (isDisabled) {
-              return
-            }
-            setIsOpen((prev) => !prev)
-          }}
+          onClick={handleArrowIconClick}
         />
       </div>
       {isOpen && (
         <div className={styles.innerWrapper}>
           <ul className={styles.options}>
             {options.length === 0 ? (
-              <li className={styles.noOptions} onClick={() => setIsOpen(false)}>
+              <li className={styles.noOptions} onClick={handleNoOptionsClick}>
                 No options available
               </li>
             ) : (
