@@ -119,7 +119,7 @@ export const Select: Comp = (props: SelectProps) => {
         <div className={styles.innerWrapper}>
           <ul className={styles.options}>
             {options.length === 0 ? (
-              <li className={styles.noOptions} onClick={handleNoOptionsClick}>
+              <li className={cn(styles.noOptions, styles.option)} onClick={handleNoOptionsClick}>
                 No options available
               </li>
             ) : (

@@ -53,8 +53,7 @@
   width: 2rem;
   height: 2rem;
   fill: var(--primary-500);
-  top: 50%;
-  margin-top: calc(2rem / -2);
+  margin-top: 1rem;
   right: 0.8rem;
   cursor: pointer;
 
@@ -69,7 +68,6 @@
 }
 
 .innerWrapper {
-  position: absolute;
   z-index: 2;
   padding: 0;
   margin-top: 0.8rem;
@@ -101,7 +99,7 @@
 .noOptions {
   color: var(--primary-500);
   padding: 1.6rem 2.4rem;
-  cursor: default;
+  cursor: default !important;
 }
 
 .option {
