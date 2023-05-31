@@ -6,6 +6,7 @@ An autocomplete component
 
 - React
 - Typescript
+- SCSS
 - classnames
 - Prettier, ESLint, and Husky
 
