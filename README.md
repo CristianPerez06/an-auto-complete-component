@@ -1,6 +1,6 @@
 # an-autocomplete-component
 
-An autocomplete component
+A modern, customizable autocomplete component built with React and TypeScript. Features real-time search with debounced API calls, keyboard navigation, and a clean, accessible UI. Includes loading states, error handling, and is fully responsive.
 
 ## Tech stack
 
@@ -10,17 +10,19 @@ An autocomplete component
 - classnames
 - Prettier, ESLint, and Husky
 
-## How to execute the app
+## Getting Started
 
-1. Run `npm install`
-2. Run `npm run husky-prepare`
-3. Run `npm start`
+To run the application locally:
 
-## Live example
+1. Install dependencies: `npm install`
+2. Prepare Husky hooks: `npm run husky-prepare`
+3. Start the development server: `npm run dev`
 
-This example is deployed on [Render](https://render.com/) using a free account. Taking this into account there are a couple of things to keep in mind before using the app:
+## Live Demo
 
-- On first use, the App will have to boot, which could take several seconds.
-- Extensive use may affect performance.
+A live version of this app is hosted on [Render](https://render.com/) (free tier). Please note:
 
-Go to [live example](https://an-autocomplete-component.onrender.com/)
+- The app may take several seconds to start on first use, as the server may be sleeping.
+- Performance may be limited during periods of high usage.
+
+[View the live demo here](https://an-autocomplete-component.onrender.com/)
