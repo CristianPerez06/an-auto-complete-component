@@ -12,11 +12,17 @@ A modern, customizable autocomplete component built with React and TypeScript. F
 
 ## Getting Started
 
+### Development Server
+
+Next step is to install dependencies and run the development server:
+
+```bash
 To run the application locally:
 
 1. Install dependencies: `npm install`
 2. Prepare Husky hooks: `npm run husky-prepare`
-3. Start the development server: `npm run dev`
+3. Start the development server: `npm start`
+```
 
 ## Live Demo
 
